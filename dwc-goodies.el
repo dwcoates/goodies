@@ -8,6 +8,34 @@
 ;;; Code:
 
 
+(require 'cl)
+
+  ;; Courtesy of Xah
+(defun get-string-from-file (filePath)
+  "Return FILEPATH's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
+
+  ;; Courtesy of Xah
+(defun read-lines (filePath)
+  "Return a list of lines of a file at FILEPATH."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (split-string (buffer-string) "\n" t)))
+
+(defun split-in-two (predicate list)
+  "According to PREDICATE, split LIST in two."
+  (loop for x in list
+        if (funcall predicate x) collect x into yes
+        else collect x into no
+        finally (return (values yes no))))
+
+(defun first-middle-last (list)
+  "Return a list composed of three elements.
+The first and last of which are the same as that of LIST."
+  (list (car list) (nbutlast list) (car (last list))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; Helm ;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
