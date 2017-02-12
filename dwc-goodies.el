@@ -41,8 +41,8 @@ The first and last of which are the same as that of LIST."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(if (not (require 'helm-color nil t))
-    (warn "Cannot load `helm-color'. Some goodies not avaliable.")
+(if (not (require 'helm nil t))
+    (warn "Cannot load `helm'. Some goodies not avaliable.")
 
   (defun helm-insert-color-name ()
     "Insert the color name at point for the color selected via helm"
@@ -53,7 +53,11 @@ The first and last of which are the same as that of LIST."
     "Insert the hex value at point for the color selected via helm"
     (interactive)
     (insert (apply 'color-rgb-to-hex (color-name-to-rgb (helm-colors)))))
-  )
+
+  (defun helm-insert-command-name ()
+    "Insert command name at point"
+    (interactive)
+    (insert (helm-M-x-read-extended-command))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
