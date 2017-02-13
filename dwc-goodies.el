@@ -24,6 +24,14 @@
     (insert-file-contents filePath)
     (split-string (buffer-string) "\n" t)))
 
+(defun remove-buffer-substring (start end)
+  (interactive "r")
+  (let ((string (buffer-substring-no-properties start end)))
+    (delete-region start end)
+    string
+    ))
+
+
 (defun split-in-two (predicate list)
   "According to PREDICATE, split LIST in two."
   (loop for x in list
