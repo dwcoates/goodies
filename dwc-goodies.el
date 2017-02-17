@@ -62,11 +62,6 @@ The first and last of which are the same as that of LIST."
     (interactive)
     (insert (apply 'color-rgb-to-hex (color-name-to-rgb (helm-colors)))))
 
-  (defun helm-insert-command-name ()
-    "Insert command name at point"
-    (interactive)
-    (insert (helm-M-x-read-extended-command)))
-
   (defun helm-yank-selection-and-quit (arg)
     "Save `helm' selection to `kill-ring' and yank it in current buffer."
     (interactive "P")
