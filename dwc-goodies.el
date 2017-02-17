@@ -65,8 +65,24 @@ The first and last of which are the same as that of LIST."
   (defun helm-insert-command-name ()
     "Insert command name at point"
     (interactive)
-    (insert (helm-M-x-read-extended-command))))
+    (insert (helm-M-x-read-extended-command)))
 
+  (defun helm-yank-selection-and-quit (arg)
+    "Save `helm' selection to `kill-ring' and yank it in current buffer."
+    (interactive "P")
+    (with-helm-alive-p
+      (helm-run-after-exit
+       (lambda (sel)
+         (kill-new sel)
+         ;; Return nil to force `helm-mode--keyboard-quit'
+         ;; in `helm-comp-read' otherwise the value "Saved to kill-ring: foo"
+         ;; is used as exit value for `helm-comp-read'.
+         (let ((ret (prog1 nil (message "Saved to kill-ring: %s" sel) (sit-for 1))))
+           (yank)
+           ret))
+       (format "%s" (helm-get-selection nil (not arg)))))
+    (put 'helm-kill-selection-and-quit 'helm-only t))
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;; subr-x ;;;;;;;;;;;;;;;;;;;
