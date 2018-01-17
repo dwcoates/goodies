@@ -44,10 +44,13 @@
 The first and last of which are the same as that of LIST."
   (list (car list) (nbutlast list) (car (last list))))
 
-(defun switch-to-other-buffer ()
-  "Switch to last visited buffer."
-  (interactive)
-  (switch-to-buffer (other-buffer) (current-buffer) 1))
++(defun switch-to-other-buffer (arg)
+   "Switch to last visited buffer."
+  (interactive "P")
+  (let ((buf (if arg
+                 (elt (buffer-list) arg)
+               (other-buffer))))
+    (switch-to-buffer buf (current-buffer))))
 
 (defun toggle-maximize-buffer ()
   "Maximize/minimize buffer"
