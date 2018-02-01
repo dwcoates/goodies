@@ -52,6 +52,23 @@ The first and last of which are the same as that of LIST."
                (other-buffer))))
     (switch-to-buffer buf (current-buffer))))
 
+(defun cover-active-region (beg end char)
+  "Replace space with CHAR in the region."
+  (interactive
+   (if (use-region-p)
+       (list
+        (region-beginning)
+        (region-end)
+        (read-char))
+     (user-error "No useable region")))
+  (insert
+   (replace-regexp-in-string
+    " "
+    (string char)
+    (delete-and-extract-region beg end))))
+
+(global-set-key (kbd "C-c /") 'cover-active-region)
+
 (defun toggle-maximize-buffer ()
   "Maximize/minimize buffer"
        (interactive)
