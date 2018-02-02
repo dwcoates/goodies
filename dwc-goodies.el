@@ -44,7 +44,7 @@
 The first and last of which are the same as that of LIST."
   (list (car list) (nbutlast list) (car (last list))))
 
-+(defun switch-to-other-buffer (arg)
+(defun switch-to-other-buffer (arg)
    "Switch to last visited buffer."
   (interactive "P")
   (let ((buf (if arg
